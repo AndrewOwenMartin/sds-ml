@@ -1,0 +1,3 @@
+#!/bin/sh
+./sds-venv/bin/ptpython -i repl.py
+

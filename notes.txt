@@ -1,0 +1,77 @@
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 2 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 7 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 2 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 5 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 3 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 13 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 3 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 49 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 3 split: 3
+INFO:sds_ml.test_tree_search:Evaluated 9 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 4 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 21 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 4 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 295 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 4 split: 3
+INFO:sds_ml.test_tree_search:Evaluated 501 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 4 split: 4
+INFO:sds_ml.test_tree_search:Evaluated 17 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 5 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 31 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 5 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 1211 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 5 split: 3
+INFO:sds_ml.test_tree_search:Evaluated 13311 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 5 split: 4
+INFO:sds_ml.test_tree_search:Evaluated 6481 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 3, branch count: 5 split: 5
+INFO:sds_ml.test_tree_search:Evaluated 33 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 2 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 15 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 2 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 26 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 3 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 40 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 3 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 7204 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 3 split: 3
+INFO:sds_ml.test_tree_search:Evaluated 730 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 4 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 85 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 4 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 522151 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 4 split: 3
+INFO:sds_ml.test_tree_search:Evaluated 503006005 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 4 split: 4
+INFO:sds_ml.test_tree_search:Evaluated 83522 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 5 split: 1
+INFO:sds_ml.test_tree_search:Evaluated 156 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 5 split: 2
+INFO:sds_ml.test_tree_search:Evaluated 14665211 subtrees
+---
+INFO:sds_ml.test_tree_search:building tree. tree depth: 4, branch count: 5 split: 3
+many subtrees

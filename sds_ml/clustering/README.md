@@ -39,6 +39,137 @@ Before I can run some examples I had to make some problem spaces, to do that, I 
 
 [`sds_ml.clustering.problem.make_a_problem_space`](problem.py#L10-L63)
 
+These experiments use the [SDS python library](https://github.com/AndrewOwenMartin/sds), which includes some standard methods of Diffusion and Testing, as well as Iteration and Halting, we will need to define some unique behaviours for the clustering and we will reuse some standard methods provided by the library.
+
+The SDS library defines Standard SDS as follows:
+
+``` python
+def SDS(I, H):
+    while not H():
+        I()
+```
+
+Where `H` is a mode of halting, and `I` is a mode of iteration.
+
+For now we will also use a simple mode of halting [fixed iterations halting](https://github.com/AndrewOwenMartin/sds/blob/46ec870a39b2a6b43938e21d3933c487e0b40c26/sds/standard.py#L180-L201) which halts after a given number of iterations.
+
+We will use the standard method of iteration [synchronous iteration](https://github.com/AndrewOwenMartin/sds/blob/46ec870a39b2a6b43938e21d3933c487e0b40c26/sds/standard.py#L128-L139), which performs diffusion for all agents followed by testing for all agents.
+
+``` python
+def I_sync(D, T, swarm):
+
+    def I():
+
+        for agent in swarm:
+            D(agent)
+
+        for agent in swarm:
+            T(agent)
+
+    return I
+```
+
+As can be seen from the definition of synchronous iteration, it requires that two functions are passed `D` to define diffusion and `T` to define testing.
+
+We will start with the standard method of diffusion [passive diffusion](https://github.com/AndrewOwenMartin/sds/blob/46ec870a39b2a6b43938e21d3933c487e0b40c26/sds/standard.py#L142-L157) in which active agents remain unchanged and inactive agents either select new hypotheses or copy the hypothesis of an active agent. Passive diffusion requires that the function `DH` is passed which is used for selecting new hypotheses, this is specific to the task of SDS Clustering so we will define it in the next section.
+
+We will also start with the standard method of testing [boolean testing](https://github.com/AndrewOwenMartin/sds/blob/46ec870a39b2a6b43938e21d3933c487e0b40c26/sds/standard.py#L204-L213), so called as each test requires evaluating a boolean function. As with passive diffusion, boolean testing requires the definition of a task-specific function. This function `TM` is used for randomly selecting a 'microtest' function which performs a partial evaluation of the hypothesis.
+
+## SDS Clustering #1: First attempt
+
+The task-specific functions for SDS clustering are `DH` (for **H**ypothesis selection during the **D**iffusion phase) and `TM` (for **M**icrotest selection during the **T**est phase).
+
+### DH: Random hypothesis selection
+
+As the function for selecting a random hypothesis is determined by the dataset itself I make a function [`sds_ml.clustering.clustering.make_DH`](clustering.py#L11-L73) which returns a function `DH`. `make_DH` expects to be passed some information about the search space and returns `DH`. `DH` takes no arguments and returns a random hypothesis.
+
+### TM: Random microtest selection
+
+The function for selecting a random microtest is also tightly coupled to the dataset so I make a function [`sds_ml.clustering.clustering.make_boolean_TM`](clustering.py#L100-L128) which returns a function `TM`. `make_boolean_TM` gets passed the entire dataset and returns `TM`. `TM` takes no arguments and returns a random microtest.
+
+The [`microtest`](clustering.py#L76-L98) function simply tests whether a single centroid is within the threshold distance of a given point.
+
+### Putting it together
+
+With the ability to define `TM` and `DH` and search spaces (with `make_a_problem_space`) I was ready to construct and SDS.
+
+The full function can be seen in [clustering.example_basic](clustering.py#L140), but the main composing of functions looks like this.
+
+``` python
+swarm = sds.Swarm(agent_count=agent_count)
+
+H = sds.H_fixed(max_iterations)
+
+TM = make_boolean_TM(
+    points=points,
+    dimension_count=dimensions,
+    distance_metric=euclid_squared,
+    threshold=threshold,
+    rng=rng,
+)
+
+T = sds.T_boolean(TM)
+
+DH = make_DH(points=points, dimension_count=dimensions, max_k=max_k, rng=rng)
+
+D = sds.D_passive(DH, swarm, rng)
+
+I = sds.I_sync(D, T, swarm)
+
+sds.SDS(I=I, H=H)
+```
+
+You can run this function yourself with `python -m sds_ml.clustering.clustering basic` from the repository root directory.
+
+Example output
+
+```
+2020-06-19 20:00:22 INFO __main__ Point cluster distribution: [(0, 5), (1, 47), (2, 36), (3, 12)]
+2020-06-19 20:00:22 INFO __main__ Created problem with these centroids:
+centroid #0: [0.742, 0.212, 0.567]
+centroid #1: [0.739, 0.438, 0.581]
+centroid #2: [0.182, 0.526, 0.782]
+centroid #3: [0.069, 0.506, 0.084]
+2020-06-19 20:00:22 INFO __main__ Running SDS for for 1000 iterations with 1000 agents.
+2020-06-19 20:00:29 INFO __main__ Hypothesis #1 has 6 centroids.
+centroid #0: [0.195, 0.565, 0.083]
+centroid #1: [0.132, 0.425, 0.846]
+centroid #2: [0.683, 0.190, 0.387]
+centroid #3: [0.117, 0.538, 0.099]
+centroid #4: [0.791, 0.436, 0.479]
+centroid #5: [0.616, 0.493, 0.278]: 110
+Hypothesis #2 has 7 centroids.
+centroid #0: [0.034, 0.590, -0.054]
+centroid #1: [0.666, 0.476, 0.731]
+centroid #2: [0.070, 0.353, 0.189]
+centroid #3: [0.791, 0.221, 0.538]
+centroid #4: [0.348, 0.471, 0.832]
+centroid #5: [0.138, 0.520, -0.007]
+centroid #6: [0.309, 0.327, 0.333]: 92
+Hypothesis #3 has 7 centroids.
+centroid #0: [0.206, 0.490, 0.248]
+centroid #1: [0.131, 0.590, 0.310]
+centroid #2: [0.260, 0.492, 0.852]
+centroid #3: [0.618, 0.371, 0.854]
+centroid #4: [0.718, 0.410, 0.672]
+centroid #5: [0.078, 0.323, 0.136]
+centroid #6: [0.777, 0.187, 0.136]: 85
+Hypothesis #4 has 7 centroids.
+centroid #0: [0.429, 0.219, -0.056]
+centroid #1: [0.196, 0.276, 0.392]
+centroid #2: [0.321, 0.518, 0.022]
+centroid #3: [0.638, 0.255, 0.645]
+centroid #4: [0.733, 0.532, 0.657]
+centroid #5: [0.632, 0.423, 0.200]
+centroid #6: [0.049, 0.548, 0.843]: 85
+Hypothesis #5 has 5 centroids.
+centroid #0: [0.477, 0.202, 0.611]
+centroid #1: [0.270, 0.486, 0.800]
+centroid #2: [0.228, 0.364, 0.132]
+centroid #3: [0.715, 0.384, 0.645]
+centroid #4: [0.104, 0.334, 0.680]: 82
+```
+
 # Stuff to do.
 
 I would like to compare the performance against pure random search. It would be interesting to compare the performance of anything against this most zen algorithm.

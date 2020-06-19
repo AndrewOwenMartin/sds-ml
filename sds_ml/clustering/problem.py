@@ -13,12 +13,14 @@ def make_a_problem_space(
     """
     Make a problem space for clustering and the ground truth 'answers'.
     
-    Keyword arguments:
+    Positional arguments:
     lower -- lower bound for a value in any dimension
     upper -- upper bound for a value in any dimension
     dimensions -- the number of dimensions in each point
     point_count -- the total number of points to generate
     cluster_count -- the number of distinct clusters to generate
+
+    Keyword arguments:
     rng -- an instance of random.Random (optional)
     """
 

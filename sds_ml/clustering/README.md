@@ -81,19 +81,19 @@ The task-specific functions for SDS clustering are `DH` (for **H**ypothesis sele
 
 ### DH: Random hypothesis selection
 
-As the function for selecting a random hypothesis is determined by the dataset itself I make a function [`sds_ml.clustering.clustering.make_DH`](clustering.py#L11-L73) which returns a function `DH`. `make_DH` expects to be passed some information about the search space and returns `DH`. `DH` takes no arguments and returns a random hypothesis.
+As the function for selecting a random hypothesis is determined by the dataset itself I make a function [`sds_ml.clustering.clustering.make_DH`](clustering.py#L39-L74) which returns a function `DH`. `make_DH` expects to be passed some information about the search space and returns `DH`. `DH` takes no arguments and returns a random hypothesis.
 
 ### TM: Random microtest selection
 
-The function for selecting a random microtest is also tightly coupled to the dataset so I make a function [`sds_ml.clustering.clustering.make_boolean_TM`](clustering.py#L100-L128) which returns a function `TM`. `make_boolean_TM` gets passed the entire dataset and returns `TM`. `TM` takes no arguments and returns a random microtest.
+The function for selecting a random microtest is also tightly coupled to the dataset so I make a function [`sds_ml.clustering.clustering.make_boolean_TM`](clustering.py#L102-L132) which returns a function `TM`. `make_boolean_TM` gets passed the entire dataset and returns `TM`. `TM` takes no arguments and returns a random microtest.
 
-The [`microtest`](clustering.py#L76-L98) function simply tests whether a single centroid is within the threshold distance of a given point.
+The [`microtest`](clustering.py#L77-L99) function simply tests whether a single centroid is within the threshold distance of a given point.
 
 ### Putting it together
 
 With the ability to define `TM` and `DH` and search spaces (with `make_a_problem_space`) I was ready to construct and SDS.
 
-The full function can be seen in [clustering.example_basic](clustering.py#L140), but the main composing of functions looks like this.
+The full function can be seen in [clustering.example_basic](clustering.py#L140-L205), but the main composing of functions looks like this.
 
 ``` python
 swarm = sds.Swarm(agent_count=agent_count)

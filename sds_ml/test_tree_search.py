@@ -128,11 +128,11 @@ class TestTreeSearch(unittest.TestCase):
 
     def test_all_best_subtrees(self):
 
-        tree_depths = [1,2,3,4,5]
+        tree_depths = [1,2,3]
 
-        branch_counts = [1,2,3,4,5]
+        branch_counts = [1,2,3]
 
-        split_num = [1,2,3,4,5]
+        split_num = [1,2,3]
 
         # tree_depths = itertools.count(start=1)
 

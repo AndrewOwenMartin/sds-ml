@@ -1,3 +1,6 @@
+doc/hex.ppt
 sds-venv
 .ipynb_checkpoints
 *.pyc
+sds_ml/datasets/pima-indians-diabetes.csv
+sds_ml/datasets/pima-indians-diabetes.ods

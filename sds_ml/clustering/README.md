@@ -35,9 +35,8 @@ The largest cluster will form at the hypothesis which has the greatest score.
 
 ## Housekeeping
 
-Before I can run some examples I had to make some problem spaces, to do that, I used this algorithm.
-
-[`sds_ml.clustering.problem.make_a_problem_space`](problem.py#L10-L63)
+Before I can run some examples I had to make some problem spaces. To do that I make an algorithm which randomly selects some centroids from the an n-dimensional space and then generates some points with a gaussian distribution around those centroids. It returns the points and the 'secret' answers as to how they were generated.  
+This algorithm can be seen here: [`sds_ml.clustering.problem.make_a_problem_space`](problem.py#L10-L63)
 
 These experiments use the [SDS python library](https://github.com/AndrewOwenMartin/sds), which includes some standard methods of Diffusion and Testing, as well as Iteration and Halting, we will need to define some unique behaviours for the clustering and we will reuse some standard methods provided by the library.
 
